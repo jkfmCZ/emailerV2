@@ -54,7 +54,7 @@ class MessageForm(forms.ModelForm):
                 'class': 'border rounded px-2 py-1'
             }),
                 'message': forms.Textarea(attrs={
-                'placeholder': 'enter a message you want to send.',
+                'placeholder': 'enter a message you want to send (Dear SUBJECT, We are happy to invite you and your company COMPANY to our event...).',
                 'class': 'border rounded px-2 py-1 h-32 lg:h-32'
             }),
                 'subject': forms.TextInput(attrs={

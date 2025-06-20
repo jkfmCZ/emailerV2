@@ -3,6 +3,11 @@
 <body class="bg-gray-100 p-10 font-sans">
   <div class="max-w-5xl mx-auto bg-white p-6 shadow rounded">
     <h1 class="text-2xl font-bold mb-4 text-center">New e-mail connection</h1>
+    <div class="mb-6 p-4 bg-yellow-100 border-l-4 border-yellow-400 text-yellow-700">
+      <strong>Note:</strong>  
+      In the message content, use <code>COMPANY</code> where you want the contact’s company name to appear,  
+      and <code>SUBJECT</code> where you want to insert the contact’s name or greeting.
+    </div>
 
     
     <form method="post" class="max-w-3xl pt-5 mx-auto">
@@ -35,14 +40,18 @@
       <a href="{% url 'main' %}" class="block text-blue-600 hover:underline">← Back to the main site</a>
     </p>
 
-    <div>
+    <div class="space-y-6 mt-8">
       {% for x in msgs %}
-        <h2><strong>Name: </strong>{{ x.name }}</h2>
-        <h2><strong>Subject: </strong>{{ x.subject }}</h2>
-        <p><strong>Content: </strong>{{ x.message }}</p>
-        <br class="pt-5">
+        <div class="border rounded p-4 shadow-sm bg-gray-50">
+          <h3 class="text-lg font-semibold mb-1">Name: <span class="font-normal">{{ x.name }}</span></h3>
+          <h4 class="text-md font-medium mb-2">Subject: <span class="font-normal">{{ x.subject }}</span></h4>
+          <p class="whitespace-pre-line">{{ x.message }}</p>
+        </div>
+      {% empty %}
+        <p class="text-gray-500 italic">No message templates created yet.</p>
       {% endfor %}
     </div>
+
 
   </div>
 
