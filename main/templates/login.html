@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-10 font-sans">
+  <div class="max-w-xl mx-auto bg-white p-6 shadow rounded">
+    <h1 class="text-2xl font-bold mb-4">Login to the system</h1>
+
+    <form method="post">
+      {% csrf_token %}
+        <div class="mb-4">
+            <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium mb-1">Jméno</label>
+            {{ form.as_p }}
+        </div>
+
+
+    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+
+        Login
+
+    </button>
+    </form>
+
+    <p class="mt-4 text-sm text-gray-600">
+      <a href="{% url 'register' %}" class="text-blue-600 hover:underline">← Register</a>
+    </p>
+  </div>
+</body>
+</html>

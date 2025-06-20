@@ -1,0 +1,29 @@
+{% extends "nav.html" %}
+{%block content%}
+<body class="bg-gray-100 min-h-screen flex items-center flex items-center justify-center">
+
+  <div class="w-full h-full p-6 overflow-y-auto bg-white shadow-lg rounded text-center">
+    <br>
+    {% if user.username == "" %}
+        <h1 class="text-2xl font-bold mb-6">Login to see your entries</h1>
+    {% else %}
+        <h1 class="text-2xl font-bold mb-6">{{ user.username.capitalize }}´s Entries</h1>
+    {% endif %}
+    
+    <div class="space-y-3">
+        {% for x in contacts %}
+
+            <div class="p-4 bg-blue-100 rounded">
+                <strong>Jméno:</strong> {{ x.name }}
+                <strong>Firma:</strong> {{ x.company }}
+                <strong>Email:</strong> {{ x.email }}
+                {% if  x.contacted == False %}
+                <strong class="text-red-500">Contacted: {{ x.contacted }} </strong>
+                {% else %}
+                <strong class="text-green-500">Contacted: {{ x.contacted }} </strong>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

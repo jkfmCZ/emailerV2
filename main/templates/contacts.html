@@ -1,0 +1,45 @@
+{% extends "nav.html" %}
+{%block content%}
+<body class="bg-gray-100 p-10 font-sans">
+  <div class="max-w-5xl mx-auto bg-white p-6 shadow rounded">
+    <h1 class="text-2xl font-bold mb-4 text-center">New e-mail connection</h1>
+
+    
+    <form method="post" class="max-w-3xl pt-5 mx-auto">
+      {% csrf_token %}
+
+      <!-- Odsazení obsahu doleva -->
+      <div class="flex space-x-2 mb-2 font-medium justify-start">
+        <div class="w-1/4">
+          <label for="{{ form.name.id_for_label }}"> <strong>Subject</strong> </label>
+          {{ form.name }}
+        </div>
+        <div class="w-1/4">
+          <label for="{{ form.company.id_for_label }}"><strong>Company</strong></label>
+          {{ form.company }}
+        </div>
+        <div class="w-1/4 mb-4">
+          <label for="{{ form.email.id_for_label }}"><strong>Email</strong></label>
+          {{ form.email }}
+        </div>
+      <div class="w-1/4 mb-4">
+        <label for="{{ form.message.id_for_label }}"><strong>Message</strong></label>
+        {{ form.message }}
+      </div>
+      </div>
+
+      <!-- Tlačítko zůstane vycentrované -->
+      <button type="submit" class="block  mx-auto mt-5 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded text-center">
+        Save connection
+      </button>
+    </form>
+
+
+
+    <p class="block mt-5 text-sm text-gray-600">
+      <a href="{% url 'main' %}" class="block text-blue-600 hover:underline">← Back to the main site</a>
+    </p>
+    </div>
+
+</body>
+{% endblock %}

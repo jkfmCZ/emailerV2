@@ -1,0 +1,50 @@
+{% extends "nav.html" %}
+{%block content%}
+<body class="bg-gray-100 p-10 font-sans">
+  <div class="max-w-5xl mx-auto bg-white p-6 shadow rounded">
+    <h1 class="text-2xl font-bold mb-4 text-center">New e-mail connection</h1>
+
+    
+    <form method="post" class="max-w-3xl pt-5 mx-auto">
+      {% csrf_token %}
+
+      <!-- Odsazení obsahu doleva -->
+      <div class="flex flex-col space-y-4 mb-2 font-medium justify-start">
+        <div class="flex flex-col flex-1" >
+          <label for="{{ form.name.id_for_label }}" class="mb-1 "><strong>Message's Name</strong></label>
+          {{ form.name }}
+        </div>
+        <div class="flex flex-col flex-1" >
+          <label for="{{ form.name.id_for_label }}" class="mb-1 "><strong>Message's Subject</strong></label>
+          {{ form.subject }}
+        </div>
+        <div class="flex flex-col flex-1">
+          <label for="{{ form.message.id_for_label }}" class="mb-1 font-semibold">Message's Content</label>
+          {{ form.message }}
+        </div>
+      </div>
+      <!-- Tlačítko zůstane vycentrované -->
+      <button type="submit" class="block  mx-auto mt-5 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded text-center">
+        Save connection
+      </button>
+    </form>
+
+
+ 
+    <p class="block mt-5 text-sm text-gray-600">
+      <a href="{% url 'main' %}" class="block text-blue-600 hover:underline">← Back to the main site</a>
+    </p>
+
+    <div>
+      {% for x in msgs %}
+        <h2><strong>Name: </strong>{{ x.name }}</h2>
+        <h2><strong>Subject: </strong>{{ x.subject }}</h2>
+        <p><strong>Content: </strong>{{ x.message }}</p>
+        <br class="pt-5">
+      {% endfor %}
+    </div>
+
+  </div>
+
+</body>
+{% endblock %}
