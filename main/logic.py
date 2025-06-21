@@ -12,33 +12,43 @@ def sender():
 
             
         now = datetime.now()
-        weekday = now.weekday()  
+        weekday = now.weekday()
         hour = now.hour
 
-        if 0 <= weekday <= 4:
-            # work hours ch
+        if 0 <= weekday <= 4:  
             if 8 <= hour < 16:
+
                 wait_seconds = random.randint(300, 600)
                 print(f"Waiting {wait_seconds//60} minit and {wait_seconds%60} second 4 next email.")
                 time.sleep(wait_seconds)
             else:
-                #next 8:00
+                # aft 16
                 if hour >= 16:
-                    
-                    next_start = (now + timedelta(days=1)).replace(hour=8, minute=0, second=0, microsecond=0)
+                    next_day = now + timedelta(days=1)
                 else:
-                    # bfr 8
-                    next_start = now.replace(hour=8, minute=0, second=0, microsecond=0)
+                    # bfr 8:00
+                    next_day = now
+
+                # OTHER DAY WEEKEND
+                if next_day.weekday() >= 5:
+                    days_until_monday = (7 - now.weekday()) % 7
+                    if days_until_monday == 0:
+                        days_until_monday = 1  
+                    next_start = (now + timedelta(days=days_until_monday)).replace(hour=8, minute=0, second=0, microsecond=0)
+                else:
+                    next_start = next_day.replace(hour=8, minute=0, second=0, microsecond=0)
 
                 sleep_seconds = (next_start - now).total_seconds()
-                print(f"Waiting for the work day {next_start} ({int(sleep_seconds)} second).")
+                print(f"Waiting for the work day {next_start} ({int(sleep_seconds/60/60)} hours).")
                 time.sleep(sleep_seconds)
         else:
-            # no workday
-            days_until_monday = (7 - weekday) % 7 
+            # weekend = til Mon - 8:00
+            days_until_monday = (7 - weekday) % 7
+            if days_until_monday == 0:
+                days_until_monday = 1
             next_start = (now + timedelta(days=days_until_monday)).replace(hour=8, minute=0, second=0, microsecond=0)
             sleep_seconds = (next_start - now).total_seconds()
-            print(f"Waiting till Monday 8:00 ({int(sleep_seconds)} second).")
+            print(f"Waiting till Monday 8:00 ({int(sleep_seconds/60/60)} hours).")
             time.sleep(sleep_seconds)
 
             
