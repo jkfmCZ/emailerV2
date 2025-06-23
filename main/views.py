@@ -9,6 +9,13 @@ import threading
 import time
 from .logic import start_sender_thread
 
+from django.contrib.auth import logout
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
 def register_view(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
