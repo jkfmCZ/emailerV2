@@ -81,7 +81,7 @@ def sender():
                 eml["Bcc"] = fromE
 
 
-                eml.attach(MIMEText(f'<p>{msg}</p>', 'html'))
+                eml.attach(MIMEText(f'<body>{msg}</body>', 'html'))
                 #file sending
 
                 #error kodiky
