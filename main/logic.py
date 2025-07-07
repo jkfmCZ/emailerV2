@@ -3,7 +3,13 @@ import time, re
 from .models import Emails, Contacts, Message
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.header import Header
 from datetime import datetime, timedelta
+from email.utils import parseaddr, formataddr
+from email.header import Header 
+import smtplib
+from email.message import EmailMessage
+from email.utils import formataddr
 
 
 
@@ -63,25 +69,48 @@ def sender():
                     msg = re.sub(r'\bCOMPANY\b', y.company, msg)
                 except:
                     msg = g.message
-                print(f"msg:{msg}")
+                                
+                try:
+                    msg = re.sub(r'\bSUBJECT\b', y.name, g.message)
+                    msg = re.sub(r'\bCOMPANY\b', y.company, msg)
+                except:
+                    msg = g.message
+  
+                html_msg = f"""
+                 <!DOCTYPE html>
+                 <html>
+                        <head>
+                                 <meta charset="UTF-8">
+                        </head>
+                        {msg}
+                 </html>
+                 """
+
+                
+                # print(f"msg:{html_msg}")
                 # print(x.user,g.name,g.message,y.company)
                 # print(Message.objects.first().user)
                 HOST = x.host
                 port = x.port
                 fromE = x.email
+                
 
                 # fromE = toE
                 passwo = x.token
-                eml = MIMEMultipart("alternative")
+                eml = EmailMessage()
+                eml.set_charset('utf-8')
                 eml["Subject"] = g.subject
-                eml["From"] = fromE
+
+
+                eml['From'] = formataddr((x.name, x.email))
 
                 eml["To"]= y.email
-                eml["Cc"] = fromE
-                eml["Bcc"] = fromE
 
 
-                eml.attach(MIMEText(f'<body>{msg}</body>', 'html'))
+                eml.set_content("Tento e-mail podporuje pouze HTML klienty.")
+                eml.add_alternative(html_msg, subtype='html')
+
+
                 #file sending
 
                 #error kodiky
@@ -108,6 +137,7 @@ def sender():
                 print("Other error:", e)
 
         print("Sending e-mails...")
+
 
 
 

@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Emails(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    email = models.EmailField()
+    email = models.EmailField(max_length=100)
+    name = models.CharField(max_length=255)
     token = models.CharField(max_length=255)
     host = models.CharField(max_length=255)
     port = models.PositiveIntegerField()
@@ -15,7 +16,7 @@ class Emails(models.Model):
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=20)
-    message = models.CharField(max_length=1500)
+    message = models.CharField(max_length=5500)
     subject = models.CharField(max_length=100)
     def __str__(self):
         return self.name 

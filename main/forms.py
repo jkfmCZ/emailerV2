@@ -4,9 +4,10 @@ from .models import Emails, Contacts, Message
 class EmailsForm(forms.ModelForm):
     class Meta:
         model = Emails
-        fields = ['email', 'token', 'host', 'port']
+        fields = ['email', 'token', 'host', 'port', "name"]
         widgets = {
             'email': forms.EmailInput(attrs={'class': 'border p-2 w-full'}),
+            'name': forms.TextInput(attrs={'class': 'border p-2 w-full'}),           
             'token': forms.TextInput(attrs={'class': 'border p-2 w-full'}),
             'host': forms.TextInput(attrs={'class': 'border p-2 w-full'}),
             'port': forms.NumberInput(attrs={'class': 'border p-2 w-full'}),
